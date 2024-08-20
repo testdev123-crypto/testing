@@ -16,16 +16,14 @@ public class UserDetailService {
     UserDetailRepository userDetailRepository;
 
     public void addUserDetail(UserDetailDTO userDetailDTOList) {
-        try {
+
             System.out.println("ID:"+userDetailDTOList.getId());
             System.out.println("Address:"+userDetailDTOList.getAddress());
             System.out.println("Father:"+userDetailDTOList.getFather());
             System.out.println("mother:"+userDetailDTOList.getMother());
             userDetailRepository.addUserDetail(userDetailDTOList.getId(),userDetailDTOList.getAddress(),userDetailDTOList.getFather(),userDetailDTOList.getMother());
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+
     }
 
     public void addUserDetail2(List<UserDetailDTO> userDettailDTOList){
