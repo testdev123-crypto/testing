@@ -43,6 +43,6 @@ public class User {
     private String phoneNumber;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Role role;
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    private UserDetail userDetail;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private UserDetail userDetail;
 }
