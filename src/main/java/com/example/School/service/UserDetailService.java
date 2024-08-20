@@ -29,15 +29,11 @@ public class UserDetailService {
     }
 
     public void addUserDetail2(List<UserDetailDTO> userDettailDTOList){
-        try {
 
             for (UserDetailDTO userDetailDTO : userDettailDTOList) {
                 userDetailRepository.addUserDetail(userDetailDTO.getId(),userDetailDTO.getAddress(), userDetailDTO.getFather(),userDetailDTO.getMother());
             }
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     public List<UserDetailDTO> getAllUserDetail() {
