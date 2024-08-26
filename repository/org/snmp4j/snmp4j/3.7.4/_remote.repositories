@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Aug 13 10:40:20 IST 2024
+snmp4j-3.7.4.jar>central=
+snmp4j-3.7.4.jar>sonatype=
+snmp4j-3.7.4.pom>central=
+snmp4j-3.7.4.pom>sonatype=

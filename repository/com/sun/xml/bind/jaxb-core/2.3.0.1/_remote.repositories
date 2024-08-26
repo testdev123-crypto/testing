@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Nov 09 10:54:24 IST 2023
+jaxb-core-2.3.0.1.jar>central=
+jaxb-core-2.3.0.1.jar>sonatype=
+jaxb-core-2.3.0.1.pom>central=
+jaxb-core-2.3.0.1.pom>sonatype=

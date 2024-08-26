@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Dec 29 11:29:48 IST 2023
+reactor-core-3.6.0.jar>central=
+reactor-core-3.6.0.jar>sonatype=
+reactor-core-3.6.0.pom>central=
+reactor-core-3.6.0.pom>sonatype=

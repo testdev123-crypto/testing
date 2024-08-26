@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Aug 13 10:40:20 IST 2024
+guice-3.0-no_aop.jar>central=
+guice-3.0-no_aop.jar>sonatype=
+guice-3.0.pom>central=
+guice-3.0.pom>sonatype=

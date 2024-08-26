@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- This module was also published with a richer model, Gradle metadata,  -->
+  <!-- which should be used instead. Do not delete the following line which  -->
+  <!-- is to indicate to Gradle or any Gradle module metadata file consumer  -->
+  <!-- that they should prefer consuming it instead. -->
+  <!-- do_not_remove: published-with-gradle-metadata -->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dev.the-fireplace</groupId>
+  <artifactId>Erroring-Entity-Remover</artifactId>
+  <version>1.0.2+1.18</version>
+  <name>Erroring Entity Remover</name>
+  <description>Removes entities that throw errors and crash Minecraft while ticking.</description>
+  <url>https://www.curseforge.com/minecraft/mc-mods/erroring-entity-remover</url>
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>the_fireplace</id>
+      <name>The_Fireplace</name>
+      <email>the.f1repl4ce@gmail.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:svn:https://github.com/The-Fireplace-Minecraft-Mods/Erroring-Entity-Remover.git</connection>
+    <developerConnection>scm:svn:https://github.com/The-Fireplace-Minecraft-Mods/Erroring-Entity-Remover.git</developerConnection>
+    <url>https://github.com/The-Fireplace-Minecraft-Mods/Erroring-Entity-Remover</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>net.fabricmc</groupId>
+      <artifactId>fabric-loader</artifactId>
+      <version>0.12.6</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+</project>

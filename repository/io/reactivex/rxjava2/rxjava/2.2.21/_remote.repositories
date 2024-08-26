@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Aug 13 10:40:20 IST 2024
+rxjava-2.2.21.jar>central=
+rxjava-2.2.21.jar>sonatype=
+rxjava-2.2.21.pom>central=
+rxjava-2.2.21.pom>sonatype=

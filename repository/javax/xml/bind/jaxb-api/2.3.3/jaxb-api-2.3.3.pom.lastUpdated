@@ -1,0 +1,8 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Nov 16 15:42:27 IST 2023
+https\://oss.sonatype.org/content/repositories/releases/.error=
+https\://oss.sonatype.org/content/repositories/releases/.lastUpdated=1700129545961
+https\://repo.maven.apache.org/maven2/.error=
+https\://repo.maven.apache.org/maven2/.lastUpdated=1700129547678
+https\://www.snmp4j.org/agent/2.9.0/maven/.error=
+https\://www.snmp4j.org/agent/2.9.0/maven/.lastUpdated=1700129547306

@@ -1,0 +1,9 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Nov 23 12:52:31 IST 2023
+@default-spring-ext-http\://repo.spring.io/ext-release-local/.lastUpdated=1700724150801
+@default-spring-milestones-http\://repo.spring.io/milestone/.lastUpdated=1700724151295
+@default-spring-snapshots-http\://repo.spring.io/snapshot/.lastUpdated=1700724151797
+http\://repo.spring.io/ext-release-local/.error=Could not transfer artifact org.jboss.shrinkwrap.descriptors\:shrinkwrap-descriptors-bom\:pom\:2.0.0-alpha-8 from/to spring-ext (http\://repo.spring.io/ext-release-local/)\: Failed to transfer file\: http\://repo.spring.io/ext-release-local/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-bom/2.0.0-alpha-8/shrinkwrap-descriptors-bom-2.0.0-alpha-8.pom. Return code is\: 405 , ReasonPhrase\:Not Allowed.
+http\://repo.spring.io/milestone/.error=Could not transfer artifact org.jboss.shrinkwrap.descriptors\:shrinkwrap-descriptors-bom\:pom\:2.0.0-alpha-8 from/to spring-milestones (http\://repo.spring.io/milestone)\: Failed to transfer file\: http\://repo.spring.io/milestone/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-bom/2.0.0-alpha-8/shrinkwrap-descriptors-bom-2.0.0-alpha-8.pom. Return code is\: 405 , ReasonPhrase\:Not Allowed.
+http\://repo.spring.io/snapshot/.error=Could not transfer artifact org.jboss.shrinkwrap.descriptors\:shrinkwrap-descriptors-bom\:pom\:2.0.0-alpha-8 from/to spring-snapshots (http\://repo.spring.io/snapshot)\: Failed to transfer file\: http\://repo.spring.io/snapshot/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-bom/2.0.0-alpha-8/shrinkwrap-descriptors-bom-2.0.0-alpha-8.pom. Return code is\: 405 , ReasonPhrase\:Not Allowed.
+https\://repo.maven.apache.org/maven2/.lastUpdated=1700724151832

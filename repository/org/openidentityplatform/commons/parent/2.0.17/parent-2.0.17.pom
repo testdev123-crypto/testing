@@ -1,0 +1,1396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+ Copyright 2011-2015 ForgeRock AS.
+
+ The contents of this file are subject to the terms
+ of the Common Development and Distribution License
+ (the License). You may not use this file except in
+ compliance with the License.
+
+ You can obtain a copy of the License at
+ http://forgerock.org/license/CDDLv1.0.html
+ See the License for the specific language governing
+ permission and limitations under the License.
+
+ When distributing Covered Code, include this CDDL
+ Header Notice in each file and include the License file
+ at http://forgerock.org/license/CDDLv1.0.html
+ If applicable, add the following below the CDDL Header,
+ with the fields enclosed by brackets [] replaced by
+ your own identifying information:
+ "Portions Copyrighted [year] [name of copyright owner]"
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.openidentityplatform.commons</groupId>
+    <artifactId>parent</artifactId>
+    <version>2.0.17</version>
+    <packaging>pom</packaging>
+    <name>${project.groupId}.${project.artifactId}</name>
+    <description>Parent POM for Open Identity Platform Community projects. Provides default project build configuration.</description>
+    <url>https://github.com/OpenIdentityPlatform/commons/</url>
+
+    <organization>
+        <name>Open Identity Platform Community</name>
+        <url>https://github.com/OpenIdentityPlatform</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>CDDL-1.0</name>
+            <url>http://www.opensource.org/licenses/CDDL-1.0</url>
+            <comments>Common Development and Distribution License (CDDL) 1.0.
+                This license applies to source code as indicated in the
+                source files.
+            </comments>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/OpenIdentityPlatform/commons/issues</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:git:https://github.com/OpenIdentityPlatform/commons.git</connection>
+        <developerConnection>scm:git:https://github.com/OpenIdentityPlatform/commons.git</developerConnection>
+        <url>https://github.com/OpenIdentityPlatform/commons</url>
+        <tag>2.0.17</tag>
+    </scm>
+    <developers>
+    	<developer>
+    		<id>Open Identity Platform Community</id>
+    		<name>Open Identity Platform Community</name>
+    		<email>open-identity-platform@googlegroups.com</email>
+    		<organization>Open Identity Platform Community</organization>
+    		<organizationUrl>https://www.openidentityplatform.org/</organizationUrl>
+    		<url>https://github.com/OpenIdentityPlatform/commons</url>
+    	</developer>
+    </developers>
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<modules>
+		<module>maven-external-dependency-plugin/maven-external-dependency-plugin</module>
+		<module>build-tools</module>
+		<module>i18n-framework</module>
+		<module>guice</module>
+		<module>ui</module>
+		<module>commons</module>
+		<module>bloomfilter</module>
+		<module>persistit</module>
+		<module>script</module>
+	</modules>
+    <properties>
+        <!-- ************** -->
+        <!-- Build settings -->
+        <!-- ************** -->
+
+        <!-- Cross plugins settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- maven-compiler-plugin http://maven.apache.org/plugins/maven-compiler-plugin -->
+        <mavenCompilerPluginVersion>3.10.1</mavenCompilerPluginVersion>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+
+        <!-- maven-enforcer-plugin -->
+        <maven.min.version>3.0.1</maven.min.version>
+        <jdk.min.version>${maven.compiler.source}</jdk.min.version>
+
+        <!-- findbugs-maven-plugin -->
+        <findbugsPluginVersion>3.0.1</findbugsPluginVersion>
+
+        <!-- maven-javadoc-plugin -->
+        <javadocPluginVersion>3.0.1</javadocPluginVersion>
+        <!-- build-tools stylesheet org/forgerock/javadoc/javadoc.css
+             does not work with JDK7 -->
+        <javadocStylesheet />
+        <javadocWindowTitle>${project.name} ${project.version} Documentation</javadocWindowTitle>
+        <javadocDocTitle>${javadocWindowTitle}</javadocDocTitle>
+
+        <!-- maven-idea-plugin & maven-eclipse-plugin -->
+        <downloadSources>true</downloadSources>
+        <downloadJavadocs>true</downloadJavadocs>
+
+        <!-- maven-pmd-plugin -->
+        <pmdPluginVersion>3.4</pmdPluginVersion>
+        <targetJdk>${maven.compiler.target}</targetJdk>
+
+        <!-- maven-checkstyle-plugin -->
+        <checkstylePluginVersion>3.0.0</checkstylePluginVersion>
+        <checkstyleSourceConfigLocation>org/forgerock/checkstyle/check-src-default.xml</checkstyleSourceConfigLocation>
+        <checkstyleDocTargetConfigLocation>org/forgerock/checkstyle/check-src-doc-target.xml</checkstyleDocTargetConfigLocation>
+        <checkstyleUnitTestSuppressionsLocation>org/forgerock/checkstyle/unit-test-suppressions.xml</checkstyleUnitTestSuppressionsLocation>
+        <checkstyleHeaderLocation>org/forgerock/checkstyle/default-java-header</checkstyleHeaderLocation>
+        <checkstyleFailOnError>false</checkstyleFailOnError>
+
+        <!-- Thanks to the usage of properties, each project using this POM as parent-pom can easily use its own plugin version 
+             (useful when you have some constraints on a given version and if the parent doesn't give you the one you need ...) -->
+
+        <!-- clirr-maven-plugin -->
+        <clirrPluginVersion>2.6.1</clirrPluginVersion>
+
+        <!-- cobertura-maven-plugin http://mojo.codehaus.org/cobertura-maven-plugin -->
+        <coberturaPluginVersion>2.7</coberturaPluginVersion>
+
+        <!-- maven-dependency-plugin -->
+        <mavenDependencyPluginVersion>3.1.0</mavenDependencyPluginVersion>
+
+        <!-- maven-clean-plugin http://maven.apache.org/components/plugins/maven-clean-plugin -->
+        <mavenCleanPluginVersion>3.1.0</mavenCleanPluginVersion>
+
+        <!-- maven-jar-plugin http://maven.apache.org/plugins/maven-jar-plugin/ -->
+        <mavenJarPluginVersion>3.0.2</mavenJarPluginVersion>
+
+        <!-- maven-war-plugin http://maven.apache.org/plugins/maven-war-plugin/ -->
+        <mavenWarPluginVersion>3.2.0</mavenWarPluginVersion>
+
+        <!-- maven-assembly-plugin http://maven.apache.org/plugins/maven-assembly-plugin/ -->
+        <mavenAssemblyPluginVersion>3.1.0</mavenAssemblyPluginVersion>
+
+        <!-- maven-surefire-plugin http://maven.apache.org/surefire/maven-surefire-plugin/ -->
+        <mavenSurefirePluginVersion>3.0.0-M4</mavenSurefirePluginVersion>
+
+        <!-- maven-source-plugin http://maven.apache.org/plugins/maven-source-plugin/ -->
+        <mavenSourcePluginVersion>3.0.1</mavenSourcePluginVersion>
+
+        <!-- maven-resources-plugin http://maven.apache.org/plugins/maven-resources-plugin/ -->
+        <mavenResourcesPluginVersion>3.0.2</mavenResourcesPluginVersion>
+
+        <!-- maven-remote-resources-plugin http://maven.apache.org/plugins/maven-remote-resources-plugin/ -->
+        <mavenRemoteResourcesPluginVersion>1.5</mavenRemoteResourcesPluginVersion>
+
+        <!-- maven-install-plugin http://maven.apache.org/plugins/maven-install-plugin/ -->
+        <mavenInstallPluginVersion>3.0.0-M1</mavenInstallPluginVersion>
+
+        <!-- maven-scm-plugin http://maven.apache.org/plugins/maven-scm-plugin/ -->
+        <mavenSCMPluginVersion>1.9.5</mavenSCMPluginVersion>
+
+        <!-- license-maven-plugin http://mojo.codehaus.org/license-maven-plugin/ -->
+        <licenseMavenPluginVersion>1.16</licenseMavenPluginVersion>
+
+        <!-- maven-enforcer-plugin http://maven.apache.org/plugins/maven-enforcer-plugin/ -->
+        <mavenEnforcerPluginVersion>3.0.0-M2</mavenEnforcerPluginVersion>
+
+        <!-- ***************** -->
+        <!-- Repository Deployment URLs -->
+        <!-- ***************** -->
+
+        <!-- this property makes sure NetBeans 6.8+ picks up some formatting rules from checkstyle -->
+        <netbeans.checkstyle.format>true</netbeans.checkstyle.format>
+
+        <jackson.version>2.14.0-rc1</jackson.version>
+        <slf4j.version>1.7.36</slf4j.version>
+        <swagger.version>1.6.2</swagger.version>
+    </properties>
+
+    <prerequisites>
+        <maven>${maven.min.version}</maven>
+    </prerequisites>
+	<dependencyManagement>
+		<dependencies>
+			 <dependency>
+		      <groupId>org.apache.httpcomponents</groupId>
+		      <artifactId>httpasyncclient-osgi</artifactId>
+		      <version>4.1.4</version>
+		    </dependency>
+		    <dependency>
+			    <groupId>org.apache.httpcomponents</groupId>
+			    <artifactId>httpcore-osgi</artifactId>
+			    <version>4.4.14</version>
+			</dependency>
+		    <dependency>
+			    <groupId>org.apache.httpcomponents</groupId>
+			    <artifactId>httpcore</artifactId>
+			    <version>4.4.14</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.httpcomponents</groupId>
+			    <artifactId>httpcore-nio</artifactId>
+			    <version>4.4.14</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.httpcomponents</groupId>
+			    <artifactId>httpclient-osgi</artifactId>
+			    <version>4.5.13</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.httpcomponents</groupId>
+			    <artifactId>httpclient</artifactId>
+			    <version>4.5.13</version>
+			</dependency>
+			<dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-nop</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+			
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>31.1-jre</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>2.23.4</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>6.14.3</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>2.4.1</version>
+			</dependency>
+
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.6.2</version>
+            </dependency>
+            
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-jsonSchema</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-csv</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jdk8</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-paranamer</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-scala_2.13</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-json-org</artifactId>
+                <version>${jackson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.json</groupId>
+                        <artifactId>json</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-afterburner</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-jaxb-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-cbor</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-joda</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+
+            
+			<dependency>
+				<groupId>org.openidentityplatform.commons.guice</groupId>
+				<artifactId>core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.openidentityplatform.commons.guice</groupId>
+				<artifactId>test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.openidentityplatform.commons.guice</groupId>
+				<artifactId>servlet</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>test-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+             <dependency>
+                <groupId>org.openidentityplatform.commons.ui</groupId>
+                <artifactId>user</artifactId>
+                <classifier>www</classifier>
+            	<type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.http-framework</groupId>
+                <artifactId>client-apache-async</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.http-framework</groupId>
+                <artifactId>client-apache-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.http-framework</groupId>
+                <artifactId>client-apache-sync</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.http-framework</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.http-framework</groupId>
+                <artifactId>servlet</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.http-framework</groupId>
+                <artifactId>grizzly</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.http-framework</groupId>
+                <artifactId>oauth2</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.json-crypto</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.json-crypto</groupId>
+                <artifactId>cli</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>json-patch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.json-ref</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.json-ref</groupId>
+                <artifactId>jackson</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.json-schema</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.json-schema</groupId>
+                <artifactId>cli</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>json-web-token</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>json-resource-descriptor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>json-resource</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>json-resource</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>json-resource-http</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>json-resource-examples</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>api-descriptor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.authn-filter.jaspi-modules</groupId>
+                <artifactId>iwa-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.authn-filter.jaspi-modules</groupId>
+                <artifactId>jwt-session-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.authn-filter.jaspi-modules</groupId>
+                <artifactId>openam-session-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.authn-filter.jaspi-modules</groupId>
+                <artifactId>openid-connect-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.authn-filter</groupId>
+                <artifactId>jaspi-runtime</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.auth-filters.authz-filter</groupId>
+                <artifactId>framework</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.auth-filters.authz-filter</groupId>
+                <artifactId>framework-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>oauth2-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>oauth2-restlet</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>json</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>handler-csv</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>handler-elasticsearch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>handler-jdbc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>handler-jms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>handler-syslog</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>handler-splunk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+             <dependency>
+                <groupId>org.openidentityplatform.commons.audit</groupId>
+                <artifactId>handler-json</artifactId>
+                <version>${project.version}</version>
+            </dependency>          
+            <dependency>
+                <groupId>org.openidentityplatform.commons.selfservice</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.selfservice</groupId>
+                <artifactId>stages</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.selfservice</groupId>
+                <artifactId>json</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>json-fluent</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+		        <groupId>org.asciidoctor</groupId>
+		        <artifactId>asciidoctorj</artifactId>
+		        <version>2.5.3</version>
+		        <exclusions>
+		          <exclusion>
+		            <groupId>com.beust</groupId>
+		            <artifactId>jcommander</artifactId>
+		          </exclusion>
+		        </exclusions>
+		      </dependency>
+		            
+		    <dependency>
+		      <groupId>org.openidentityplatform.commons.ui</groupId>
+		      <artifactId>commons</artifactId>
+		      <type>zip</type>
+		      <classifier>www</classifier>
+		      <version>${project.version}</version>
+		    </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>4.0.1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-annotations</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-core</artifactId>
+                <version>${swagger.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.datatype</groupId>
+                        <artifactId>jackson-datatype-joda</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.dataformat</groupId>
+                        <artifactId>jackson-dataformat-yaml</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>geo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>httpdump</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.openidentityplatform.commons.i18n-framework</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.i18n-framework</groupId>
+                <artifactId>slf4j</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons</groupId>
+                <artifactId>build-tools</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+             <dependency>
+                <groupId>org.openidentityplatform.commons.persistit</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.openidentityplatform.commons.bloomfilter</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openidentityplatform.commons.bloomfilter</groupId>
+                <artifactId>monitoring</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+		        <groupId>com.maxmind.geoip2</groupId>
+		        <artifactId>geoip2</artifactId>
+		        <version>2.13.0</version>
+		        <exclusions>
+		          <exclusion>
+		            <groupId>org.apache.httpcomponents</groupId>
+		            <artifactId>httpcore</artifactId>
+		          </exclusion>
+		          <exclusion>
+		            <groupId>org.apache.httpcomponents</groupId>
+		            <artifactId>httpclient</artifactId>
+		          </exclusion>
+		        </exclusions>
+		      </dependency>
+			<dependency>
+				<groupId>com.sun.xml.fastinfoset</groupId>
+				<artifactId>FastInfoset</artifactId>
+				<version>1.2.17</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-core</artifactId>
+				<version>2.3.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-impl</artifactId>
+				<version>2.3.2</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb1-impl</artifactId>
+				<version>2.2.5.1</version>
+			</dependency>
+		    <dependency>
+		        <groupId>com.google.code.findbugs</groupId>
+		        <artifactId>jsr305</artifactId>
+		        <version>3.0.2</version>
+		    </dependency>
+		    <dependency>
+			    <groupId>org.apache.commons</groupId>
+			    <artifactId>commons-lang3</artifactId>
+			    <version>3.11</version>
+			</dependency>
+			<dependency>
+			   <groupId>commons-io</groupId>
+			   <artifactId>commons-io</artifactId>
+			   <version>2.7</version>
+			 </dependency>
+		    <dependency>
+			    <groupId>junit</groupId>
+			    <artifactId>junit</artifactId>
+			    <version>4.13.1</version>
+			    <scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+    <build><finalName>${project.groupId}.${project.artifactId}</finalName>
+        <pluginManagement>
+            <!--    mvn versions:display-plugin-updates
+                    mvn versions:display-dependency-updates
+                    mvn versions:use-latest-versions
+            -->
+            <plugins>
+                <!-- set versions of common plugins for reproducibility, ordered alphabetically -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>2.4.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven3-plugin</artifactId>
+                    <version>1.9.8</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.openidentityplatform.commons</groupId>
+                    <artifactId>maven-external-dependency-plugin</artifactId>
+                    <version>${project.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>${coberturaPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>${findbugsPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${mavenAssemblyPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>2.3.7</version>
+                    <configuration>
+                        <instructions>
+                            <Implementation-Build>${ci.build.number}</Implementation-Build>
+                            <SCM-Revision>${ci.scm.revision}</SCM-Revision>
+                        </instructions>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${checkstylePluginVersion}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.openidentityplatform</groupId>
+                            <artifactId>build-tools</artifactId>
+                            <version>${forgerockBuildToolsVersion}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>[8.29,)</version>
+                        </dependency>
+                    </dependencies>
+
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${mavenCleanPluginVersion}</version>
+                </plugin>
+                <plugin>
+                	<groupId>org.apache.maven.plugins</groupId>
+                	<artifactId>maven-war-plugin</artifactId>
+                	<version>3.2.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${mavenCompilerPluginVersion}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <compilerArgument>-Xlint:all</compilerArgument>
+                        <showWarnings>true</showWarnings>
+                        <showDeprecation>true</showDeprecation>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${mavenDependencyPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-docck-plugin</artifactId>
+                    <version>1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${mavenEnforcerPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${mavenInstallPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-invoker-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${mavenJarPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jarsigner-plugin</artifactId>
+                    <version>1.2</version>
+                </plugin>
+                <plugin>
+                    <!--  See generate-javadoc profile - the configuration here
+                          must be aligned with the report configuration
+                          specified in the profile -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${javadocPluginVersion}</version>
+<!--                     <dependencies> -->
+<!--                         <dependency> -->
+<!--                             <groupId>org.openidentityplatform</groupId> -->
+<!--                             <artifactId>build-tools</artifactId> -->
+<!--                             <version>${forgerockBuildToolsVersion}</version> -->
+<!--                         </dependency> -->
+<!--                     </dependencies> -->
+                    <configuration>
+                    	<source>8</source>
+                        <author>false</author>
+                        <quiet>true</quiet>
+                        <windowtitle>${javadocWindowTitle}</windowtitle>
+                        <doctitle>${javadocDocTitle}</doctitle>
+                        <header><![CDATA[<b>${javadocDocTitle}</b>]]></header>
+                        <footer><![CDATA[<b>${javadocDocTitle}</b>]]></footer>
+                        <additionalparam>-linksource</additionalparam>
+                        <show>protected</show>
+<!--                         <excludePackageNames>com.*</excludePackageNames> -->
+                        <stylesheetfile>${javadocStylesheet}</stylesheetfile>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${pmdPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-release-plugin</artifactId>
+			        <version>3.0.0-M7</version>
+			        <configuration>
+			        	<signTag>true</signTag>
+			        	<tagNameFormat>@{project.version}</tagNameFormat>
+			        	<allowTimestampedSnapshots>false</allowTimestampedSnapshots>
+			        </configuration>
+			    </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-remote-resources-plugin</artifactId>
+                    <version>${mavenRemoteResourcesPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${mavenResourcesPluginVersion}</version>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-plugin</artifactId>
+                    <version>${mavenSCMPluginVersion}</version>
+                    <configuration>
+                        <tag>${project.artifactId}-${project.version}</tag>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.3</version>
+                    <configuration>
+                        <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-ssh</artifactId>
+                            <version>2.2</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${mavenSourcePluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${mavenSurefirePluginVersion}</version>
+<!--                     <dependencies> -->
+<!--                         <dependency> -->
+<!--                             <groupId>org.openidentityplatform</groupId> -->
+<!--                             <artifactId>build-tools</artifactId> -->
+<!--                             <version>${forgerockBuildToolsVersion}</version> -->
+<!--                         </dependency> -->
+<!--                     </dependencies> -->
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.0.0-M3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.plexus</groupId>
+                    <artifactId>plexus-maven-plugin</artifactId>
+                    <version>1.3.8</version>
+                </plugin>
+                <plugin>
+                    <!--This plugin's configuration is used to store Eclipse m2e settings
+                        only. It has no influence on the Maven build itself. It's really
+                        annoying that we have to do this. The alternative is that each
+                        developer who uses Eclipse must manually configure M2E. -->
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.6,)</versionRange>
+                                        <goals>
+                                            <goal>unpack</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.openidentityplatform.commons.i18n-framework</groupId>
+                                        <artifactId>maven-plugin</artifactId>
+                                        <versionRange>[1.2.0,)</versionRange>
+                                        <goals>
+                                            <goal>generate-messages</goal>
+                                            <goal>generate-test-messages</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute>
+                                            <runOnIncremental>true</runOnIncremental>
+                                            <runOnConfiguration>true</runOnConfiguration>
+                                        </execute>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-enforcer-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
+                                        <goals>
+                                            <goal>enforce</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>build-helper-maven-plugin</artifactId>
+                                        <versionRange>[1.4,)</versionRange>
+                                        <goals>
+                                            <goal>reserve-network-port</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                  <pluginExecutionFilter>
+                                    <groupId>org.codehaus.mojo</groupId>
+                                    <artifactId>xml-maven-plugin</artifactId>
+                                    <versionRange>1.0</versionRange>
+                                    <goals>
+                                      <goal>transform</goal>
+                                      <goal>validate</goal>
+                                    </goals>
+                                  </pluginExecutionFilter>
+                                  <action>
+                                    <execute>
+                                      <runOnIncremental>true</runOnIncremental>
+                                      <runOnConfiguration>true</runOnConfiguration>
+                                    </execute>
+                                  </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                  <pluginExecutionFilter>
+                                    <groupId>org.codehaus.mojo</groupId>
+                                    <artifactId>buildnumber-maven-plugin</artifactId>
+                                    <versionRange>[0,)</versionRange>
+                                    <goals>
+                                      <goal>create</goal>
+                                    </goals>
+                                  </pluginExecutionFilter>
+                                  <action>
+                                    <execute>
+                                      <runOnConfiguration>true</runOnConfiguration>
+                                      <runOnIncremental>true</runOnIncremental>
+                                    </execute>
+                                  </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <!-- Check Open Source licenses for all the dependencies -->
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>${licenseMavenPluginVersion}</version>
+                    <configuration>
+                        <useMissingFile>true</useMissingFile>
+                        <fileTemplate>/org/codehaus/mojo/license/third-party-file-groupByLicense.ftl</fileTemplate>
+                        <failIfWarning>true</failIfWarning>
+                        <excludedScopes>test,provided</excludedScopes>
+                        <licenseMerges>
+                            <licenseMerge>
+                                Apache Software License, Version 2.0|
+                                The Apache Software License, Version 2.0|
+                                Apache v2|Apache 2|ASL, version 2|
+                                Apache 2.0|
+                                Apache License|
+                                Apache license|
+                                Apache-2.0|
+                                ALv2|
+                                Apache 2.0 license|
+                                Apache 2.0 License|
+                                Apache License Version 2.0|
+                                Apache License, Version 2.0|
+                                Apache Software License - Version 2.0|
+                                Apache License 2.0
+                            </licenseMerge>
+                            <licenseMerge>
+                                Common Development and Distribution License 1.0|
+                                CDDL 1.0|
+                                COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0|
+                                CDDL|
+                                CDDL-1.0|
+                                CDDL 1.0 license|
+                                CDDL 1.0 License|
+                                CDDL License, Version 1.0|
+                                Common Development and Distribution License (CDDL) v1.0|
+                                CDDL License
+                            </licenseMerge>
+                            <licenseMerge>
+                                Common Development and Distribution License 1.1|
+                                CDDL 1.1|
+                                CDDL-1.1|
+                                CDDL 1.1 license|
+                                CDDL 1.1 License|
+                                CDDL License, Version 1.1|
+                                Common Development and Distribution License (CDDL) v1.1
+                            </licenseMerge>
+                            <licenseMerge>
+                                The MIT License|
+                                The MIT license|
+                                MIT License|
+                                MIT license|
+                                MIT
+                            </licenseMerge>
+                            <licenseMerge>
+                                The GNU Lesser General Public License, version 2.1|
+                                LGPL 2.1 license|
+                                LGPL 2.1 License|
+                                LGPL, version 2.1|
+                                LGPL version 2.1|
+                                GNU Lesser General Public License, Version 2.1
+                            </licenseMerge>
+                            <licenseMerge>
+                                The GNU Lesser General Public License, version 2.0 with Classpath Exception|
+                                GPL2 w/ CPE|
+                                GPLv2+CE|
+                                GPLv2 with classpath exception
+                            </licenseMerge>
+                            <licenseMerge>
+                                The GNU Lesser General Public License, version 3.0|
+                                LGPL 3.0 license|
+                                LGPL, 3.0 license|
+                                LGPL, version 3.0|
+                                LGPL version 3.0|
+                                GNU Lesser General Public License, Version 3.0
+                            </licenseMerge>
+                            <licenseMerge>
+                                BSD|
+                                BSD License|
+                                BSD license|
+                                BSD-style license|
+                                The BSD License|
+                                The BSD license
+                            </licenseMerge>
+                            <licenseMerge>
+                                Dual licensed (CDDL and GPL)|
+                                CDDL+GPL|
+                                CDDL+GPL License|
+                                CDDL+GPL license
+                            </licenseMerge>
+                            <licenseMerge>
+                                Dual licensed (CDDL and GPLv2+CE)|
+                                CDDL/GPLv2+CE|
+                                CDDL + GPLv2 with classpath exception
+                            </licenseMerge>
+                        </licenseMerges>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+        	<plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+		          <execution>
+		            <id>attach-sources</id>
+		            <phase>verify</phase>
+		            <goals>
+		              <goal>jar-no-fork</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+            </plugin>
+             <plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-javadoc-plugin</artifactId>
+			  <executions>
+			    <execution>
+			      <id>attach-javadocs</id>
+			      <goals>
+			        <goal>jar</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			  <configuration>
+			  	<doclint>none</doclint>
+			  </configuration>
+			</plugin>
+			<plugin>
+		      <groupId>org.sonatype.plugins</groupId>
+		      <artifactId>nexus-staging-maven-plugin</artifactId>
+		      <version>1.6.12</version>
+		      <extensions>true</extensions>
+		      <configuration>
+		        <serverId>ossrh</serverId>
+		        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+		        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+		        <stagingProgressTimeoutMinutes>15</stagingProgressTimeoutMinutes>
+		        <keepStagingRepositoryOnFailure>false</keepStagingRepositoryOnFailure>
+		        <keepStagingRepositoryOnCloseRuleFailure>false</keepStagingRepositoryOnCloseRuleFailure>
+		      </configuration>
+		      <dependencies>
+		      	<dependency>
+			        <groupId>com.google.guava</groupId>
+			        <artifactId>guava</artifactId>
+			        <version>15.0</version>
+			     </dependency>
+		      </dependencies>
+		    </plugin>
+        </plugins>
+    </build>
+    <profiles>
+	    <profile>
+	        <id>release-sign-artifacts</id>
+	        <activation>
+	            <property>
+			        <name>gpg.passphrase</name>
+			    </property>
+	        </activation>
+	        <build>
+	            <plugins>
+	                <plugin>
+				      <groupId>org.apache.maven.plugins</groupId>
+				      <artifactId>maven-gpg-plugin</artifactId>
+				      <version>1.6</version>
+				      <configuration>
+                      	<passphrase>${gpg.passphrase}</passphrase>
+                        <useAgent>true</useAgent>
+                      </configuration>
+				      <executions>
+				        <execution>
+				          <id>sign-artifacts</id>
+				          <phase>verify</phase>
+				          <goals>
+				            <goal>sign</goal>
+				          </goals>
+				          <configuration>
+				                <gpgArguments>
+				                    <arg>--pinentry-mode</arg>
+				                    <arg>loopback</arg>
+				                </gpgArguments>
+				            </configuration>
+				        </execution>
+				      </executions>
+				    </plugin>
+	            </plugins>
+	        </build>
+	    </profile>
+	    <profile>
+	      <id>jdk16.options</id>
+	      <activation>
+	        <jdk>[16,)</jdk>
+	      </activation>
+	      <properties>
+	        <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED  --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util.regex=ALL-UNNAMED --add-opens java.base/java.security=ALL-UNNAMED --add-opens java.naming/javax.naming.spi=ALL-UNNAMED</argLine>
+	      </properties>
+	    </profile>
+    </profiles>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.4</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>index</report>
+                            <report>dependency-management</report>
+                            <report>issue-tracking</report>
+                            <report>license</report>
+                            <report>scm</report>
+                            <report>plugin-management</report>
+                            <report>distribution-management</report>
+                            <report>summary</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
